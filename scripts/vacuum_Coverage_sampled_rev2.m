@@ -16,7 +16,7 @@ disp('```Initializing parameters and reading .txt file 0% complete')
 %% Create a 3D matrix: side 1 x side 2 x number of frames
 %8 feet x 10 feet x number of frames=> 244 x 305 x number of frames (1 coverage square per cm^2)
 
-subCMres = 1; %magification or shrinkage of grid i.e. subCMres = 2 turns it to a 5mm resolution grid
+subCMres = 0.7; %magification or shrinkage of grid i.e. subCMres = 2 turns it to a 5mm resolution grid
 Side1 = ceil(244 * subCMres); %length of indexes for rows
 Side2 = ceil(306 * subCMres); %length of indexes for cols
 if promptForParameters
@@ -35,6 +35,7 @@ end
 
 %% Read data & initialize 3-D matrix
 numberTable = readtable([PathName, FileName], 'delimiter', 'tab', 'ReadVariableNames', false, 'HeaderLines', 5);
+PathName = PathName(1:end-6); % remove input from path for outputs
 
 % numberTable = readtable('TestVacuumMarkers.txt', 'delimiter', 'tab', 'ReadVariableNames', false, 'HeaderLines', 5);
 numberTable2 = numberTable{1:samplingRate:size(numberTable, 1), 1:7};
@@ -120,10 +121,10 @@ disp(['Max passes = ' num2str(max(max(passesMatrix))) ' passes'])
 disp(['Min coverage = ' num2str(min(min(passesMatrix))) ' passes'])
 figure; contourf(passesMatrix);
 savefig([PathName, FileName(1:end-4), '_passes'])
-print('-dpng', [PathName, FileName(1:end-4), '_passes'])
+print('-dpng', [PathName, '/output/', FileName(1:end-4), '_passes'])
 figure; noPass=(passesMatrix==0)*1; contourf(noPass)
 savefig([PathName, FileName(1:end-4), '_noPasses'])
-print('-dpng', [PathName, FileName(1:end-4), '_noPasses'])
+print('-dpng', [PathName, '/output/', FileName(1:end-4), '_noPasses'])
 clear clearingUniqueLineIndexes
 
 %% Calculate coverage
@@ -159,12 +160,12 @@ end
 percentCovered = percentCovered / (size(simpleMatrix, 1) * size(simpleMatrix, 2));
 
 figure; area(percentCovered);
-savefig([PathName, FileName(1:end - 4), '_percentCovered'])
-print('-dpng', [PathName, FileName(1:end - 4), '_percentCovered'])
+savefig([PathName, '/output/', FileName(1:end - 4), '_percentCovered'])
+print('-dpng', [PathName, '/output/', FileName(1:end - 4), '_percentCovered'])
 disp(['Final Coverage = ' num2str(max(percentCovered) * 100) '%'])
 
 vacCoverageData={{FileName}, {percentCovered}, {passesMatrix}};
-save([FileName(1:end - 4), '_vacCoverageData'], 'vacCoverageData')
+save([PathName, '/output/', FileName(1:end - 4), '_vacCoverageData'], 'vacCoverageData')
 
 
 %% Make Video of Passes- Takes several minutes

@@ -73,7 +73,7 @@ cellTable_newYs = cellfun(@(x)[x([10:end])*x(8)+x(9)], cellTable_passXs, 'Unifor
 
 % create frame matrix in format to match new x- and y- vals [1xlenHead,
 % 2xlenHead, etc.]
-foo_newFrames=cellfun(@(x)[repmat(x(1), 1, lenHead)],cellTable_lineVars,'UniformOutput', false);
+cellTable_newFrames=cellfun(@(x)[repmat(x(1), 1, lenHead)],cellTable_lineVars,'UniformOutput', false);
 
 % expand from cell arrays to vectors
 newXs=[cellTable_newXs{:}];

@@ -1,7 +1,7 @@
 # MocapVacuumCoverage
 Coverage and passes script for processing of motion capture data for a vacuum ergonomic comparison study
 
-Script takes 3D coordinates of motion capture markers located on the ends of a vacuum wand, <br>
+Script takes 3D coordinates (in meters) of motion capture markers located on the ends of a vacuum wand, <br>
 
 
 Frame Number|x1|y1|z1|x2|y2|z2
@@ -14,6 +14,13 @@ Frame Number|x1|y1|z1|x2|y2|z2
 ... | ... | ... | ... | ... | ... | ...
 
 and calculates the estimated floor coverage at each frame.
+
+The process requires:
+ * mapping the space to a discretized (gridded) representation,
+ * interpolation between the two points,
+ * and an aggregation across trial time. 
+
+Due to the scale of the grid and duration of the trial some matrix reshaping was used to speed up the process. Matlab's sub2ind and ind2sub functions allowed a conversion to and from a linear indexing and multi dimensional indexing. This was particularly helpful in clearing a buffer to separate a single pass from multiple counts for the same pass.
 
 The final coverage and number of passes can be seen from the generated pngs.
 ###### Coverage over time

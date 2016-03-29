@@ -4,7 +4,7 @@ Coverage and passes script for processing of motion capture data for a vacuum er
 Script takes 3D coordinates of motion capture markers located on the ends of a vacuum wand, <br>
 
 
-Frame Number | x1  |  y1   |  z1   |  x2   |  y2   | z2
+Frame Number|x1|y1|z1|x2|y2|z2
 --|-|-|-|-|-|-
 1	| 0.0099998333 |	0.9999500021 |	0.0149995 |		0.5099498354 |	0.8727689958 |	0.0149995
 2	| 0.0199986667 |	0.9998000333 |	0.0149980001 |		0.5197987	| 0.8679191841	| 0.0149980001
